@@ -1,0 +1,1 @@
+{"name":"recall-static","private":true,"type":"module","scripts":{"build":"python scripts/build.py","test":"python -m unittest discover -s tests && node --test tests/scheduler.test.mjs","dev":"python -m http.server 8000 --directory site"}}
