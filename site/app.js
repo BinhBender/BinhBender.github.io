@@ -104,12 +104,20 @@ function start(deck) {
   active=deck; studied=0; $('dashboard').hidden=true; $('study').hidden=false;
   $('study-deck').textContent=deck.name; showVideo(deck); showNext();
 }
+function cardThemeStyle() {
+  const dark = document.documentElement.dataset.theme === 'dark';
+  return `<style id="card-theme">html,body,body.card{color-scheme:${dark ? 'dark' : 'light'};background:${dark ? '#202020' : '#ffffff'}!important;color:${dark ? '#eeeeee' : '#202020'}!important}body.card *{color:inherit!important;background-color:transparent!important}hr{border:0;border-top:1px solid ${dark ? '#484848' : '#d0d0d0'}}a{text-decoration:underline}</style>`;
+}
+window.addEventListener('themechange', () => {
+  const card = $('card');
+  if (card.srcdoc) card.srcdoc = card.srcdoc.replace(/<style id="card-theme">[\s\S]*?<\/style>/, cardThemeStyle());
+});
 function documentFor(card, answer) {
   // A unique sandbox origin, no scripts, no forms, no external network, and no top navigation.
   const base = new URL('.',location.href).href;
   const policy = "default-src 'none'; img-src " + location.origin + " data:; media-src " + location.origin + "; style-src 'unsafe-inline'; font-src 'none';";
   const text = answer ? card.back : card.front;
-  return '<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="'+policy+'"><base href="'+base+'"><style>body{font:20px/1.6 system-ui;color:#293f33;padding:12px;text-align:center;overflow-wrap:anywhere}img{max-width:100%;height:auto}audio{max-width:100%}h2{font-size:25px}.card{font-size:20px}'+(card.css || '')+'</style></head><body class="card">'+text+'</body></html>';
+  return '<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="'+policy+'"><base href="'+base+'"><style>body{font:20px/1.6 system-ui;color:#293f33;padding:12px;text-align:center;overflow-wrap:anywhere}img{max-width:100%;height:auto}audio{max-width:100%}h2{font-size:25px}.card{font-size:20px}'+(card.css || '')+'</style>'+cardThemeStyle()+'</head><body class="card">'+text+'</body></html>';
 }
 function showNext() {
   current=nextCard(active.cards,data.cards);revealed=false;
