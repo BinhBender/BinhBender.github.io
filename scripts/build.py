@@ -4,6 +4,7 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from anki_format import modern_metadata, media_entries, decompress
+from deck_videos import load_videos
 ROOT = Path(__file__).resolve().parents[1]
 def render(template, fields, ordinal=0, answer=False):
     section = re.compile(r'{{([#^])([^{}]+)}}((?:(?!{{[#^]).)*?){{/\2}}', re.S)
@@ -73,11 +74,15 @@ def convert(path, output):
 def build():
     output=ROOT/'site'/'data'; output.mkdir(parents=True,exist_ok=True)
     decks=[]
-    for path in sorted((ROOT/'decks').rglob('*.apkg')):
+    packages = sorted((ROOT/'decks').rglob('*.apkg'))
+    videos = load_videos(ROOT, packages)
+    for path in packages:
         try:
             imported = convert(path,output)
         except Exception as exc:
             raise ValueError(f'Failed to import {path.name}: {exc}') from exc
+        for deck in imported:
+            deck['video_url'] = videos.get(path.relative_to(ROOT/'decks').as_posix(), '')
         decks.extend(imported)
         print(f'Imported {path.name}: {sum(len(d["cards"]) for d in imported)} cards')
     for path in sorted((ROOT/'decks').rglob('*.json')):

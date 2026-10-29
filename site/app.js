@@ -1,6 +1,8 @@
 import {schedule, counts, nextCard} from './scheduler.js';
+import {setupStudyVideo} from './video.js';
 const $ = id => document.getElementById(id);
 const KEY = 'recall.progress.v1';
+const showVideo = setupStudyVideo($('study'));
 let data = {version:1, cards:{}, days:{}};
 let decks = [], active = null, current = null, revealed = false, studied = 0;
 const dayKey = () => new Date().toLocaleDateString('en-CA');
@@ -45,7 +47,7 @@ function dashboard() {
 }
 function start(deck) {
   active=deck; studied=0; $('dashboard').hidden=true; $('study').hidden=false;
-  $('study-deck').textContent=deck.name; showNext();
+  $('study-deck').textContent=deck.name; showVideo(deck); showNext();
 }
 function documentFor(card, answer) {
   // A unique sandbox origin, no scripts, no forms, no external network, and no top navigation.
@@ -88,7 +90,7 @@ function rate(rating) {
   studied++;save();showNext();
 }
 $('reveal').onclick=reveal;
-$('exit').onclick=()=>{active=null;current=null;$('study').hidden=true;$('dashboard').hidden=false;dashboard();};
+$('exit').onclick=()=>{showVideo(null);active=null;current=null;$('study').hidden=true;$('dashboard').hidden=false;dashboard();};
 $('search').oninput=dashboard;
 document.querySelectorAll('[data-rating]').forEach(b=>b.onclick=()=>rate(b.dataset.rating));
 document.addEventListener('keydown',e=>{

@@ -31,6 +31,22 @@ You can also commit JSON decks:
 
 IDs must be globally unique and stable. A JSON file may contain one deck or an array of decks. Card `front`, `back`, and optional `css` accept HTML/CSS. Put manually maintained media in `site/assets/` and reference `assets/filename.png`. Delete `decks/welcome.json` when you no longer need the sample deck.
 
+## Videos beside flashcards
+
+Edit `deck-videos.csv` in the repository root. It lists every APKG path relative to `decks/`, with a `video_url` column beside it:
+
+```csv
+file,video_url
+Day 01 Flashcards - Network Devices.apkg,https://www.youtube.com/watch?v=YOUR_VIDEO_ID
+Day 02 Flashcards - Interfaces and Cables.apkg,
+```
+
+Use an actual video URL in place of the example. YouTube watch/share/embed/shorts links, Vimeo links, and HTTPS MP4/WebM/OGG file links are supported. YouTube timestamps (`t=90` or `t=1m30s`) are retained. Leave the URL blank for no video. CSV filenames containing commas must stay quoted; a spreadsheet editor can handle quoting for you.
+
+Run `python scripts/build.py` after adding packages or editing URLs, then commit and push `deck-videos.csv` along with any new APKGs. Each build appends missing APKGs with blank video URLs and preserves existing rows, including removed packages. GitHub Actions also discovers new packages, but changes made during CI are not automatically committed back; run the build locally to refresh your editable inventory.
+
+All subdecks from the same APKG share that package's video. Videos appear beside the flashcards on wide screens and below them on smaller screens. Revealing or rating a card keeps the video playing; leaving the deck stops it. Some owners disable embedding, so the panel also provides a link to open the video separately. No video URLs or files can be uploaded or edited from the frontend. Your `site/index.html` text does not need to change.
+
 ## GitHub Pages
 
 1. Push this project to a GitHub repository with a `main` branch.
@@ -51,6 +67,6 @@ Cards render in sandboxed iframes with scripts, forms, external images, and netw
 
 ```sh
 python -m unittest discover -s tests
-node --test tests/scheduler.test.mjs
+node --test tests/*.test.mjs
 ```
 >>>>>>> 7f9385c (first com)
