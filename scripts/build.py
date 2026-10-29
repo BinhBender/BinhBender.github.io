@@ -1,6 +1,9 @@
 """Bulk convert repository APKG files to static JSON. No runtime uploads."""
 import hashlib, json, re, sqlite3, tempfile, zipfile
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from anki_format import modern_metadata, media_entries, decompress
 ROOT = Path(__file__).resolve().parents[1]
 def render(template, fields, ordinal=0, answer=False):
     section = re.compile(r'{{([#^])([^{}]+)}}((?:(?!{{[#^]).)*?){{/\2}}', re.S)
@@ -22,27 +25,33 @@ def convert(path, output):
         name = next((n for n in ['collection.anki21b','collection.anki21','collection.anki2'] if n in z.namelist()), None)
         if not name: raise ValueError(f'{path}: missing Anki collection')
         raw = z.read(name)
-        if name.endswith('21b'):
-            import zstandard
-            raw = zstandard.ZstdDecompressor().decompress(raw, max_output_size=1024**3)
+        compressed = name.endswith('21b')
+        if compressed:
+            raw = decompress(raw)
         dbpath = Path(temp)/'collection.db'; dbpath.write_bytes(raw)
         db = sqlite3.connect(dbpath); db.row_factory = sqlite3.Row
         try:
             col = db.execute('SELECT models, decks FROM col').fetchone()
-        except sqlite3.OperationalError as exc:
+            if col and col['models'] and col['decks']:
+                models, decks = json.loads(col['models']), json.loads(col['decks'])
+            else:
+                models, decks = modern_metadata(db)
+        except (sqlite3.Error, ValueError) as exc:
             db.close()
-            raise ValueError(f'{path}: re-export APKG with older Anki version compatibility enabled') from exc
-        models, decks = json.loads(col['models']), json.loads(col['decks'])
-        if not models or not decks: raise ValueError(f'{path}: re-export APKG with older Anki version compatibility enabled')
+            raise ValueError(f'{path}: unable to read Anki metadata: {exc}') from exc
+        if not models or not decks:
+            db.close()
+            raise ValueError(f'{path}: collection contains no note types or decks')
         package = hashlib.sha256(str(path.relative_to(ROOT/'decks')).encode()).hexdigest()[:16]
         mapping = {}
         if 'media' in z.namelist():
-            try: entries = json.loads(z.read('media'))
-            except (ValueError, UnicodeDecodeError): raise ValueError(f'{path}: re-export with older Anki version compatibility enabled')
+            media_data = z.read('media')
+            entries = media_entries(decompress(media_data)) if compressed else json.loads(media_data)
             folder = output/'media'/package; folder.mkdir(parents=True,exist_ok=True)
             for number, original in entries.items():
                 safe = hashlib.sha256(original.encode()).hexdigest()[:20] + Path(original).suffix
-                (folder/safe).write_bytes(z.read(number)); mapping[original] = f'data/media/{package}/{safe}'
+                content = z.read(number)
+                (folder/safe).write_bytes(decompress(content) if compressed else content); mapping[original] = f'data/media/{package}/{safe}'
         def media(text):
             for original, target in mapping.items():
                 text = text.replace('"'+original+'"','"'+target+'"').replace("'"+original+"'", "'"+target+"'")
@@ -64,7 +73,13 @@ def convert(path, output):
 def build():
     output=ROOT/'site'/'data'; output.mkdir(parents=True,exist_ok=True)
     decks=[]
-    for path in sorted((ROOT/'decks').rglob('*.apkg')): decks.extend(convert(path,output))
+    for path in sorted((ROOT/'decks').rglob('*.apkg')):
+        try:
+            imported = convert(path,output)
+        except Exception as exc:
+            raise ValueError(f'Failed to import {path.name}: {exc}') from exc
+        decks.extend(imported)
+        print(f'Imported {path.name}: {sum(len(d["cards"]) for d in imported)} cards')
     for path in sorted((ROOT/'decks').rglob('*.json')):
         data=json.loads(path.read_text()); decks.extend(data if isinstance(data,list) else [data])
     ids=[]

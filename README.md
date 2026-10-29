@@ -19,7 +19,7 @@ Open http://localhost:8000. Use HTTP instead of opening index.html directly.
 
 Place any number of `.apkg` files in `decks/` or its subdirectories, then run the build or push to `main`. Every package and its internal decks are imported automatically. Do not add exports containing private material: GitHub Pages publishes the cards and media for everyone who can visit the site.
 
-In Anki, export decks as `.apkg` with **Support older Anki versions** enabled. The importer supports the legacy SQLite collection formats, standard front/back templates, reversed cards, cloze deletions, conditional fields, embedded styling, images, and sound. Modern normalized database/protobuf exports, custom JavaScript templates, image occlusion, and advanced template filters are not supported; unsupported collection formats fail the build with an export instruction. Imported Anki scheduling is intentionally ignored: each visitor starts fresh.
+In Anki, export decks as `.apkg`. Both legacy-compatible exports and modern compressed `collection.anki21b` packages (including schema 18 metadata and protobuf media maps) are supported. The importer supports standard front/back templates, reversed cards, cloze deletions, conditional fields, embedded styling, images, and sound. Custom JavaScript templates, image occlusion, and advanced template filters are not supported. Import failures identify the package filename in the build logs. Imported Anki scheduling is intentionally ignored: each visitor starts fresh.
 
 Keep package paths and note GUIDs stable when updating a deck to preserve visitor progress. Moving or renaming an APKG creates new card identities. Removed cards no longer appear; their local history is retained in case they return.
 
