@@ -1,72 +1,72 @@
 file,video_url
-Day 01 Flashcards - Network Devices.apkg,https://youtu.be/H8W9oMNSuwo?si=BCX4kLmfTOnRNzss
-Day 02 Flashcards - Interfaces and Cables.apkg,https://www.youtube.com/watch?v=ieTH5lVhNaY&list=PLxbwE86jKRgMpuZuLBivzlM8s2Dk5lXBQ&index=4&t=462s&pp=iAQB
-Day 03 Flashcards - TCP-IP.apkg,https://www.youtube.com/watch?v=7nmYoL0t2tU&list=PLxbwE86jKRgMpuZuLBivzlM8s2Dk5lXBQ&index=7
-Day 04 Flashcards - Intro to the CLI.apkg,
-Day 05 Flashcards - Ethernet LAN Switching (Part 1).apkg,
-Day 06 Flashcards - Ethernet LAN Switching (Part 2).apkg,
-Day 07 Flashcards - IPv4 Addresses (Part 1).apkg,
-Day 08 Flashcards - IPv4 Addresses (Part 2).apkg,
-Day 09 Flashcards - Switch Interfaces.apkg,
-Day 10 Flashcards - IPv4 Header.apkg,
-Day 11 (part 1) Flashcards - Routing Fundamentals.apkg,
-Day 11 (part 2) Flashcards - Static Routing.apkg,
-Day 13 Flashcards - Subnetting.apkg,
-Day 16 Flashcards - VLANs (Part 1).apkg,
-Day 17 Flashcards - VLANs (Part 2).apkg,
-Day 18 Flashcards - VLANs (Part 3).apkg,
-Day 19 Flashcards - DTP & VTP.apkg,
-Day 20 Flashcards - STP (Part 1).apkg,
-Day 21 Flashcards - STP (Part 2).apkg,
-Day 21-1 Flashcards - PortFast.apkg,
-Day 21-2 Flashcards - BPDU Guard & BPDU Filter.apkg,
-Day 21-3 Flashcards - Root Guard.apkg,
-Day 21-4 Flashcards - Loop Guard.apkg,
-Day 22 Flashcards - Rapid STP.apkg,
-Day 23 Flashcards - EtherChannel.apkg,
-Day 24 Flashcards - Dynamic Routing.apkg,
-Day 25 Flashcards (1) - RIP & EIGRP.apkg,
+Day 01 Flashcards - Network Devices.apkg,https://www.youtube.com/watch?v=H8W9oMNSuwo
+Day 02 Flashcards - Interfaces and Cables.apkg,https://www.youtube.com/watch?v=ieTH5lVhNaY
+Day 03 Flashcards - TCP-IP.apkg,https://www.youtube.com/watch?v=yM-XNq9ADlI
+Day 04 Flashcards - Intro to the CLI.apkg,https://www.youtube.com/watch?v=IYbtai7Nu2g
+Day 05 Flashcards - Ethernet LAN Switching (Part 1).apkg,https://www.youtube.com/watch?v=u2n762WG0Vo
+Day 06 Flashcards - Ethernet LAN Switching (Part 2).apkg,https://www.youtube.com/watch?v=5q1pqdmdPjo
+Day 07 Flashcards - IPv4 Addresses (Part 1).apkg,https://www.youtube.com/watch?v=3ROdsfEUuhs
+Day 08 Flashcards - IPv4 Addresses (Part 2).apkg,https://www.youtube.com/watch?v=FiAatRd84XI
+Day 09 Flashcards - Switch Interfaces.apkg,https://www.youtube.com/watch?v=cCqluocfQe0
+Day 10 Flashcards - IPv4 Header.apkg,https://www.youtube.com/watch?v=aQB22y4liXA
+Day 11 (part 1) Flashcards - Routing Fundamentals.apkg,https://www.youtube.com/watch?v=aHwAm8GYbn8
+Day 11 (part 2) Flashcards - Static Routing.apkg,https://www.youtube.com/watch?v=YCv4-_sMvYE
+Day 13 Flashcards - Subnetting.apkg,https://www.youtube.com/watch?v=bQ8sdpGQu8c
+Day 16 Flashcards - VLANs (Part 1).apkg,https://www.youtube.com/watch?v=cjFzOnm6u1g
+Day 17 Flashcards - VLANs (Part 2).apkg,https://www.youtube.com/watch?v=Jl9OOzNaBDU
+Day 18 Flashcards - VLANs (Part 3).apkg,https://www.youtube.com/watch?v=OkPB028l2eE
+Day 19 Flashcards - DTP & VTP.apkg,https://www.youtube.com/watch?v=JtQV_0Sjszg
+Day 20 Flashcards - STP (Part 1).apkg,https://www.youtube.com/watch?v=j-bK-EFt9cY
+Day 21 Flashcards - STP (Part 2).apkg,https://www.youtube.com/watch?v=nWpldCc8msY
+Day 21-1 Flashcards - PortFast.apkg,https://www.youtube.com/watch?v=zqzppl4LOwk
+Day 21-2 Flashcards - BPDU Guard & BPDU Filter.apkg,https://www.youtube.com/watch?v=jfC_AeJnuhY
+Day 21-3 Flashcards - Root Guard.apkg,https://www.youtube.com/watch?v=2XE_PgkvSic
+Day 21-4 Flashcards - Loop Guard.apkg,https://www.youtube.com/watch?v=uJ5_Klha0ig
+Day 22 Flashcards - Rapid STP.apkg,https://www.youtube.com/watch?v=EpazNsLlPps
+Day 23 Flashcards - EtherChannel.apkg,https://www.youtube.com/watch?v=xuo69Joy_Nc
+Day 24 Flashcards - Dynamic Routing.apkg,https://www.youtube.com/watch?v=xSTgb8JLkvs
+Day 25 Flashcards (1) - RIP & EIGRP.apkg,https://www.youtube.com/watch?v=N8PiZDld6Zc
 Day 25 Flashcards (2 - Lab Video) - EIGRP Terms.apkg,
-Day 26 Flashcards - OSPF (Part 1).apkg,
-Day 27 Flashcards - OSPF (Part 2).apkg,
-Day 28 Flashcards - OSPF (Part 3).apkg,
-Day 29 Flashcards - FHRPs.apkg,
-Day 30 Flashcards - TCP & UDP.apkg,
-Day 31 Flashcards - IPv6 (Part 1).apkg,
-Day 32 Flashcards - IPv6 (Part 2).apkg,
-Day 33 Flashcards - IPv6 (Part 3).apkg,
-Day 34 Flashcards - Standard ACLs.apkg,
-Day 35 Flashcards - Extended ACLs.apkg,
-Day 36 Flashcards - CDP & LLDP.apkg,
-Day 37 Flashcards - NTP.apkg,
-Day 38 Flashcards - DNS.apkg,
-Day 39 Flashcards - DHCP.apkg,
-Day 40 Flashcards - SNMP.apkg,
-Day 41 Flashcards - Syslog.apkg,
-Day 42 Flashcards - SSH.apkg,
-Day 43 Flashcards - FTP & TFTP.apkg,
-Day 44 Flashcards - NAT (Part 1).apkg,
-Day 45 Flashcards - NAT (Part 2).apkg,
-Day 46 Flashcards - QoS (Part 1).apkg,
-Day 47 Flashcards - QoS (Part 2).apkg,
-Day 48 Flashcards - Security Fundamentals.apkg,
-Day 49 Flashcards - Port Security.apkg,
-Day 50 Flashcards - DHCP Snooping.apkg,
-Day 51 Flashcards - Dynamic ARP Inspection.apkg,
-Day 52  Flashcards - LAN Architectures.apkg,
-Day 53 Flashcards - WAN Architectures.apkg,
-Day 54 (Part 1) Flashcards - Virtualization & Cloud.apkg,
-Day 54 (Part 2) Flashcards - Containers.apkg,
-Day 54 (Part 3) Flashcards - VRF.apkg,
-Day 55 Flashcards - Wireless Fundamentals.apkg,
-Day 56 Flashcards - Wireless Architectures.apkg,
-Day 57 Flashcards - Wireless Security.apkg,
-Day 58 Flashcards - Wireless Configuration.apkg,
-Day 59 (Part 1) Flashcards - Network Automation.apkg,
-Day 59 (Part 2) Flashcards - AI & Machine Learning.apkg,
-"Day 60 Flashcards - JSON, XML, & YAML.apkg",
-Day 61 (Part 1) Flashcards - REST APIs.apkg,
-Day 61 (Part 2) Flashcards - REST Authentication.apkg,
-Day 62 Flashcards - SDN.apkg,
-"Day 63 (part 1) Flashcards - Ansible, Puppet, Chef.apkg",
-Day 63 (part 2) Flashcards - Terraform.apkg,
+Day 26 Flashcards - OSPF (Part 1).apkg,https://www.youtube.com/watch?v=pvuaoJ9YzoI
+Day 27 Flashcards - OSPF (Part 2).apkg,https://www.youtube.com/watch?v=VtzfTA21ht0
+Day 28 Flashcards - OSPF (Part 3).apkg,https://www.youtube.com/watch?v=3ew26ujkiDI
+Day 29 Flashcards - FHRPs.apkg,https://www.youtube.com/watch?v=43WnpwQMolo
+Day 30 Flashcards - TCP & UDP.apkg,https://www.youtube.com/watch?v=LIEACBqlntY
+Day 31 Flashcards - IPv6 (Part 1).apkg,https://www.youtube.com/watch?v=ZNuXyOXae5U
+Day 32 Flashcards - IPv6 (Part 2).apkg,https://www.youtube.com/watch?v=BrTMMOXFhDU
+Day 33 Flashcards - IPv6 (Part 3).apkg,https://www.youtube.com/watch?v=rwkHfsWQwy8
+Day 34 Flashcards - Standard ACLs.apkg,https://www.youtube.com/watch?v=z023_eRUtSo
+Day 35 Flashcards - Extended ACLs.apkg,https://www.youtube.com/watch?v=dUttKY_CNXE
+Day 36 Flashcards - CDP & LLDP.apkg,https://www.youtube.com/watch?v=_hnMZBzXRRk
+Day 37 Flashcards - NTP.apkg,https://www.youtube.com/watch?v=qGJaJx7OfUo
+Day 38 Flashcards - DNS.apkg,https://www.youtube.com/watch?v=4C6eeQes4cs
+Day 39 Flashcards - DHCP.apkg,https://www.youtube.com/watch?v=hzkleGAC2_Y
+Day 40 Flashcards - SNMP.apkg,https://www.youtube.com/watch?v=HXu0Ifj0oWU
+Day 41 Flashcards - Syslog.apkg,https://www.youtube.com/watch?v=RaQPSKQ4J5A
+Day 42 Flashcards - SSH.apkg,https://www.youtube.com/watch?v=AvgYqI2qSD4
+Day 43 Flashcards - FTP & TFTP.apkg,https://www.youtube.com/watch?v=50hcfsoBf4Q
+Day 44 Flashcards - NAT (Part 1).apkg,https://www.youtube.com/watch?v=2TZCfTgopeg
+Day 45 Flashcards - NAT (Part 2).apkg,https://www.youtube.com/watch?v=kILDNs4KjYE
+Day 46 Flashcards - QoS (Part 1).apkg,https://www.youtube.com/watch?v=H6FKJMiiL6E
+Day 47 Flashcards - QoS (Part 2).apkg,https://www.youtube.com/watch?v=4vurfhVjcMM
+Day 48 Flashcards - Security Fundamentals.apkg,https://www.youtube.com/watch?v=VvFuieyTTSw
+Day 49 Flashcards - Port Security.apkg,https://www.youtube.com/watch?v=sHN3jOJIido
+Day 50 Flashcards - DHCP Snooping.apkg,https://www.youtube.com/watch?v=qYYeg2kz1yE
+Day 51 Flashcards - Dynamic ARP Inspection.apkg,https://www.youtube.com/watch?v=HwbTKaIvL6s
+Day 52  Flashcards - LAN Architectures.apkg,https://www.youtube.com/watch?v=PvyEcLhmNBk
+Day 53 Flashcards - WAN Architectures.apkg,https://www.youtube.com/watch?v=BW3fQgdf4-w
+Day 54 (Part 1) Flashcards - Virtualization & Cloud.apkg,https://www.youtube.com/watch?v=_S3greGajJA
+Day 54 (Part 2) Flashcards - Containers.apkg,https://www.youtube.com/watch?v=K731pAS22Aw
+Day 54 (Part 3) Flashcards - VRF.apkg,https://www.youtube.com/watch?v=Ge4644KUvh4
+Day 55 Flashcards - Wireless Fundamentals.apkg,https://www.youtube.com/watch?v=zuYiktLqNYQ
+Day 56 Flashcards - Wireless Architectures.apkg,https://www.youtube.com/watch?v=uX1h0F6wpBY
+Day 57 Flashcards - Wireless Security.apkg,https://www.youtube.com/watch?v=wHXKo9So5y8
+Day 58 Flashcards - Wireless Configuration.apkg,https://www.youtube.com/watch?v=r9o6GFI87go
+Day 59 (Part 1) Flashcards - Network Automation.apkg,https://www.youtube.com/watch?v=4tsBgMCPVuc
+Day 59 (Part 2) Flashcards - AI & Machine Learning.apkg,https://www.youtube.com/watch?v=Fn_kAv35W5A
+"Day 60 Flashcards - JSON, XML, & YAML.apkg",https://www.youtube.com/watch?v=nohde2-QNJ4
+Day 61 (Part 1) Flashcards - REST APIs.apkg,https://www.youtube.com/watch?v=Luei0p-2h10
+Day 61 (Part 2) Flashcards - REST Authentication.apkg,https://www.youtube.com/watch?v=bmqr_xpt6sc
+Day 62 Flashcards - SDN.apkg,https://www.youtube.com/watch?v=7HhWCeXDTpA
+"Day 63 (part 1) Flashcards - Ansible, Puppet, Chef.apkg",https://www.youtube.com/watch?v=Kog9gHTjALI
+Day 63 (part 2) Flashcards - Terraform.apkg,https://www.youtube.com/watch?v=VAwUaffejWU
