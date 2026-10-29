@@ -1,4 +1,5 @@
 import {schedule, counts, nextCard} from './scheduler.js';
+import {organizeDecks} from './library.js';
 import {setupStudyVideo} from './video.js';
 const $ = id => document.getElementById(id);
 const KEY = 'recall.progress.v1';
@@ -20,30 +21,84 @@ function save() {
 function element(tag, text, cls) {
   const node = document.createElement(tag); if (text !== undefined) node.textContent = text; if(cls) node.className=cls; return node;
 }
+// Library preferences travel with the existing local progress and backups.
+function libraryPreferences() {
+  data.library ||= {};
+  if (!Array.isArray(data.library.pinned)) data.library.pinned = [];
+  return data.library;
+}
+const libraryControls = element('div', undefined, 'library-controls');
+const sortLabel = element('label', 'Organize by ');
+const sortSelect = element('select');
+sortSelect.id = 'deck-sort';
+for (const [value, label] of [['difficulty','Hardest to remember'],['due','Most due cards'],['name','Deck name']]) {
+  const option = element('option', label); option.value = value; sortSelect.append(option);
+}
+sortSelect.value = libraryPreferences().sort || 'difficulty';
+sortLabel.append(sortSelect);
+libraryControls.append(sortLabel, element('p', 'Pins stay first. Difficulty uses recent Again and Hard ratings from studied cards.', 'hint'));
+$('decks').before(libraryControls);
+$('decks').classList.remove('decks');
+$('decks').classList.add('deck-library');
+sortSelect.onchange = () => { libraryPreferences().sort = sortSelect.value; save(); dashboard(); };
+
+function deckArticle(deck, status, pinned) {
+  const article = element('article', undefined, 'deck');
+  const heading = element('div', undefined, 'deck-heading');
+  const icon = element('div', '▤', 'deck-icon'); icon.setAttribute('aria-hidden','true');
+  const pin = element('button', pinned ? '★ Pinned' : '☆ Pin', 'pin-button');
+  pin.setAttribute('aria-label', `${pinned ? 'Unpin' : 'Pin'} ${deck.name}`);
+  pin.setAttribute('aria-pressed', String(pinned));
+  pin.dataset.deckId = deck.id;
+  pin.onclick = () => {
+    const prefs = libraryPreferences();
+    prefs.pinned = pinned ? prefs.pinned.filter(id => id !== deck.id) : [...prefs.pinned, deck.id];
+    save(); dashboard();
+    [...document.querySelectorAll('.pin-button')].find(button => button.dataset.deckId === deck.id)?.focus({preventScroll:true});
+  };
+  heading.append(icon, pin);
+  article.append(heading, element('h3',deck.name),element('p',`${deck.cards.length} cards · ${deck.source || 'Repository deck'}`,'source'));
+  if (status.difficulty > 0) article.append(element('p', `${status.difficultCards} studied card${status.difficultCards === 1 ? ' needs' : 's need'} practice · ${Math.round(status.difficulty * 100)}% difficulty`, 'difficulty-note'));
+  const metrics = element('div', undefined, 'counts');
+  for (const [label, number] of [['New',status.new],['Learning',status.learning],['Review',status.review]]) {
+    const span = element('span');span.append(element('b',number),document.createTextNode(' '+label)); metrics.append(span);
+  }
+  const button = element('button', status.new + status.ready ? 'Study deck  →' : 'All caught up ✓', 'study-button');
+  button.disabled = status.new + status.ready === 0;
+  button.onclick = () => start(deck);
+  article.append(metrics,button);
+  if (button.disabled && status.learning) article.append(element('p','Learning cards return when due.','hint'));
+  return article;
+}
 function dashboard() {
   const c = counts(decks.flatMap(d => d.cards), data.cards);
   $('due').textContent = c.review; $('learning').textContent = c.learning; $('new').textContent = c.new;
   $('today').textContent = data.days[dayKey()] || 0; $('deck-count').textContent = decks.length;
-  $('decks').replaceChildren();
-  const query = $('search').value.toLowerCase();
-  const visible = decks.filter(d => d.name.toLowerCase().includes(query));
-  for (const deck of visible) {
-    const count = counts(deck.cards, data.cards);
-    const article = element('article', undefined, 'deck');
-    const icon = element('div', '▤', 'deck-icon'); icon.setAttribute('aria-hidden','true');
-    article.append(icon, element('h3',deck.name),element('p',`${deck.cards.length} cards · ${deck.source || 'Repository deck'}`,'source'));
-    const metrics = element('div', undefined, 'counts');
-    for (const [label, number] of [['New',count.new],['Learning',count.learning],['Review',count.review]]) {
-      const span = element('span');span.append(element('b',number),document.createTextNode(' '+label)); metrics.append(span);
+  const prefs = libraryPreferences();
+  sortSelect.value = prefs.sort || 'difficulty';
+  const query = $('search').value;
+  const groups = organizeDecks(decks, data.cards, prefs, query);
+  const sections = [];
+  for (const [key, title] of [['pinned','Pinned'],['difficult','Needs practice'],['studied','Studied'],['unopened','Not started']]) {
+    const items = groups[key];
+    if (!items.length) continue;
+    const section = element(key === 'unopened' ? 'details' : 'section', undefined, 'library-group');
+    const heading = element(key === 'unopened' ? 'summary' : 'h3', `${title} (${items.length})`, 'library-group-title');
+    section.append(heading);
+    if (key === 'unopened') {
+      section.open = Boolean(query.trim()) || Boolean(prefs.unopenedExpanded);
+      section.ontoggle = () => {
+        if (!section.isConnected || $('search').value.trim()) return;
+        if (prefs.unopenedExpanded !== section.open) {prefs.unopenedExpanded = section.open;save();}
+      };
     }
-    const button = element('button', count.new + count.ready ? 'Study deck  →' : 'All caught up ✓');
-    button.disabled = count.new + count.ready === 0;
-    button.onclick = () => start(deck);
-    article.append(metrics,button);
-    if (button.disabled && count.learning) article.append(element('p','Learning cards return when due.','hint'));
-    $('decks').append(article);
+    const grid = element('div', undefined, 'decks');
+    for (const {deck, status} of items) grid.append(deckArticle(deck, status, key === 'pinned'));
+    section.append(grid); sections.push(section);
   }
-  $('message').textContent = !decks.length ? 'No decks yet. Add APKG files to the repository’s decks folder and rebuild.' : !visible.length ? 'No decks match your search.' : '';
+  $('decks').replaceChildren(...sections);
+  const total = Object.values(groups).reduce((sum, items) => sum + items.length, 0);
+  $('message').textContent = !decks.length ? 'No decks yet. Add APKG files to the repository’s decks folder and rebuild.' : !total ? 'No decks match your search.' : '';
 }
 function start(deck) {
   active=deck; studied=0; $('dashboard').hidden=true; $('study').hidden=false;
@@ -107,7 +162,7 @@ window.addEventListener('storage',e=>{
   if(e.key!==KEY || !e.newValue)return;
   try {const saved=JSON.parse(e.newValue);if(saved.version===1 && saved.cards && saved.days){data=saved;if(!active)dashboard();}}catch{}
 });
-setInterval(()=>{if(!active)dashboard();else if(!current)showNext();},30000);
+setInterval(()=>{if(!active){if(!$('decks').contains(document.activeElement))dashboard();}else if(!current)showNext();},30000);
 try {
   const response=await fetch('data/catalog.json',{cache:'no-cache'});
   if(!response.ok)throw new Error('Catalog unavailable');

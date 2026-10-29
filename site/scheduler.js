@@ -2,11 +2,12 @@ export const DAY = 86400000;
 export function schedule(previous, rating, now = Date.now()) {
   const old = previous || {state: 'new', interval: 0};
   if (!['again', 'hard', 'good', 'easy'].includes(rating)) throw new Error('Invalid rating');
+  const ratings = [...(old.ratings || []), rating].slice(-10);
   if (rating === 'again' || rating === 'hard') {
-    return {state: 'learning', interval: 0, due: now + (rating === 'again' ? 60000 : 360000), reviews: (old.reviews || 0) + 1};
+    return {ratings, state: 'learning', interval: 0, due: now + (rating === 'again' ? 60000 : 360000), reviews: (old.reviews || 0) + 1};
   }
   const interval = rating === 'easy' ? Math.max(4, Math.round(old.interval * 3)) : Math.max(1, Math.round(old.interval * 2.5));
-  return {state: 'review', interval, due: now + interval * DAY, reviews: (old.reviews || 0) + 1};
+  return {ratings, state: 'review', interval, due: now + interval * DAY, reviews: (old.reviews || 0) + 1};
 }
 export function counts(cards, progress, now = Date.now()) {
   return cards.reduce((out, card) => {

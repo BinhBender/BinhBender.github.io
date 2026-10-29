@@ -12,3 +12,17 @@ main:has(#study.has-video:not([hidden])){max-width:1480px}
 .study-video a{display:inline-block;text-decoration:none}
 .study-video .hint{line-height:1.6;margin-bottom:0}
 @media(max-width:900px){.has-video .study-layout{grid-template-columns:1fr}.study-video{position:static;margin-top:0}.study-video .deck-video-player{max-height:450px}}
+
+.library-controls{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px;flex-wrap:wrap}
+.library-controls label{font-size:12px;color:#64775b}
+.library-controls select{font:inherit;color:#293f33;border:1px solid #dfe5d8;border-radius:7px;background:#fff;padding:9px;margin-left:8px;max-width:100%}
+.library-controls .hint{margin:0;max-width:390px;line-height:1.6}
+.library-group{margin-bottom:30px}
+.library-group-title{font-size:14px;font-weight:600;color:#64775b;margin:0 0 16px}
+summary.library-group-title{cursor:pointer;background:#edf1e4;border:1px solid #dfe5d8;border-radius:10px;padding:16px}
+.deck-heading{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.deck .pin-button{background:transparent;color:#64775b;padding:8px;font-size:12px;border:1px solid #e1e6db}
+.deck .pin-button:hover{background:#edf1e4}
+.deck .pin-button[aria-pressed="true"]{background:#edf1e4;color:#304e3b;border-color:#aabb96}
+.difficulty-note{font-size:11px;line-height:1.5;color:#926746;margin:0 0 20px}
+@media(max-width:480px){.library-controls label{display:flex;align-items:center;justify-content:space-between;width:100%}.library-controls select{max-width:70%}}
